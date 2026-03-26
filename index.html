@@ -507,7 +507,8 @@ h1.main-title{font-size:clamp(24px,7vw,34px);font-weight:900;color:var(--knesset
 /* ═══════════════════════════════
    CONFIG
 ═══════════════════════════════ */
-const VOTE_ID     = "44642";
+const _urlParams  = new URLSearchParams(window.location.search);
+const VOTE_ID     = _urlParams.get("G") || _urlParams.get("vote") || "44642";
 const API_BASES   = ["https://www.knesset.gov.il","https://knesset.gov.il","https://main.knesset.gov.il"];
 const DETAIL_PATH = "/WebSiteApi/knessetapi/Votes/GetVoteDetails/";
 const LOG_URL     = "https://script.google.com/macros/s/AKfycbylf9toWaPCjkCosm1orC3sMinDDzJh9NAOiAFLex9vBQmXcxIYCVr4F5WDYvVClKYe/exec";
@@ -553,13 +554,20 @@ function normVote(t){
 
 async function init(){
   showScreen("loading");
-  document.getElementById("load-msg").textContent = "מתחבר לשרתי הכנסת…";
-  for(const base of API_BASES){
+  document.getElementById("load-msg").textContent = "טוען נתוני הצבעה…";
+  const _BASES = ["https://www.knesset.gov.il","https://knesset.gov.il","https://main.knesset.gov.il"];
+  const _PATH  = "/WebSiteApi/knessetapi/Votes/GetVoteDetails/";
+  let data = null;
+  for(const base of _BASES){
     try{
-      const r = await fetch(base+DETAIL_PATH+VOTE_ID, {mode:"cors"});
+      const r = await fetch(base + _PATH + VOTE_ID, {mode:"cors"});
       if(!r.ok) throw new Error(`HTTP ${r.status}`);
-      const data = await r.json();
-      if(!data?.VoteDetails) throw new Error("no data");
+      const json = await r.json();
+      if(json?.VoteDetails){ data = json; break; }
+    }catch(_){ await sleep(200); }
+  }
+  try{
+    if(!data) throw new Error("לא ניתן להגיע לשרתי הכנסת");
 
       const hdr     = data.VoteHeader?.[0] || {};
       const members = (data.VoteDetails||[])
@@ -620,12 +628,10 @@ async function init(){
       `;
 
       showScreen("home");
-      return;
-    }catch(_){ await sleep(180); }
+  }catch(err){
+    document.getElementById("error-msg").textContent = "לא ניתן לטעון את ההצבעה. (" + err.message + ")";
+    showScreen("error");
   }
-  // All bases failed
-  document.getElementById("error-msg").textContent = "לא ניתן להגיע לשרתי הכנסת. בדוק חיבור ונסה שוב.";
-  showScreen("error");
 }
 
 /* ═══════════════════════════════
