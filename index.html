@@ -7,9 +7,6 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;800;900&family=Assistant:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
-/* ═══════════════════════════════
-   TOKENS
-═══════════════════════════════ */
 :root {
   --knesset: #1a3a5c;
   --gold:    #d4a843;
@@ -24,8 +21,6 @@
   --shadow-lg: 0 8px 40px rgba(0,0,0,.15);
   --r: 16px;
   --btn-depth: 4px;
-
-  /* vote colors */
   --for-color:     #16a34a;
   --for-bg:        rgba(22,163,74,.10);
   --for-border:    rgba(22,163,74,.55);
@@ -37,9 +32,6 @@
   --abstain-border:rgba(180,83,9,.45);
 }
 
-/* ═══════════════════════════════
-   BASE
-═══════════════════════════════ */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 html,body{
   height:100%;font-family:'Rubik',sans-serif;direction:rtl;
@@ -47,18 +39,12 @@ html,body{
   overflow:hidden;user-select:none;-webkit-tap-highlight-color:transparent;
 }
 #app{width:100%;height:100dvh;display:flex;flex-direction:column;position:relative;}
-
 .screen{display:none;width:100%;height:100%;flex-direction:column;position:absolute;inset:0;}
 .screen.active{display:flex;animation:fadeIn .3s cubic-bezier(.4,0,.2,1);}
 @keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
 
-/* ═══════════════════════════════
-   LOADING
-═══════════════════════════════ */
-#screen-loading{
-  align-items:center;justify-content:center;gap:18px;
-  background:linear-gradient(180deg,#c9e8f8 0%,#e8f4fd 60%);
-}
+/* LOADING */
+#screen-loading{align-items:center;justify-content:center;gap:18px;background:linear-gradient(180deg,#c9e8f8 0%,#e8f4fd 60%);}
 .load-icon{font-size:60px;animation:float 1.8s ease-in-out infinite;}
 @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
 .load-title{font-size:30px;font-weight:900;color:var(--knesset);}
@@ -67,100 +53,54 @@ html,body{
 @keyframes loadPulse{0%{width:0}60%{width:90%}100%{width:100%}}
 #load-msg{font-size:13px;color:var(--muted);font-weight:500;font-family:'Assistant',sans-serif;text-align:center;max-width:260px;line-height:1.6;}
 
-/* ═══════════════════════════════
-   ERROR
-═══════════════════════════════ */
-#screen-error{
-  align-items:center;justify-content:center;gap:16px;padding:24px;text-align:center;
-  background:linear-gradient(180deg,#c9e8f8,#e8f4fd);
-}
+/* ERROR */
+#screen-error{align-items:center;justify-content:center;gap:16px;padding:24px;text-align:center;background:linear-gradient(180deg,#c9e8f8,#e8f4fd);}
 .error-box{color:var(--accent);font-size:13px;max-width:320px;line-height:1.7;background:rgba(230,57,70,.07);border:1px solid rgba(230,57,70,.25);border-radius:12px;padding:12px 16px;font-family:'Assistant',sans-serif;}
 
-/* ═══════════════════════════════
-   HOME
-═══════════════════════════════ */
-#screen-home{
-  background:linear-gradient(180deg,#a8d8f0 0%,#c9e8f8 30%,#e8f4fd 55%);
-  overflow-y:auto;
-}
+/* HOME */
+#screen-home{background:linear-gradient(180deg,#a8d8f0 0%,#c9e8f8 30%,#e8f4fd 55%);overflow-y:auto;}
 .home-wrap{display:flex;flex-direction:column;height:100%;max-width:480px;margin:0 auto;width:100%;}
-
 .home-sky{padding:28px 20px 16px;display:flex;flex-direction:column;align-items:center;gap:7px;flex-shrink:0;}
 .home-sky-icon{font-size:56px;animation:float 2.6s ease-in-out infinite;}
 h1.main-title{font-size:clamp(24px,7vw,34px);font-weight:900;color:var(--knesset);line-height:1.15;text-align:center;}
-.subtitle{font-size:14px;color:var(--muted);font-weight:500;font-family:'Assistant',sans-serif;text-align:center;}
 .home-actions{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:8px;}
-
-.home-card{
-  background:var(--white);border-radius:28px 28px 0 0;
-  padding:20px 20px 32px;flex:1;display:flex;flex-direction:column;
-  box-shadow:0 -4px 20px rgba(0,0,0,.08);
-  padding-bottom:calc(20px + env(safe-area-inset-bottom,0px));
-  overflow-y:auto;
-}
-
+.home-card{background:var(--white);border-radius:28px 28px 0 0;padding:20px 20px 32px;flex:1;display:flex;flex-direction:column;box-shadow:0 -4px 20px rgba(0,0,0,.08);padding-bottom:calc(20px + env(safe-area-inset-bottom,0px));overflow-y:auto;}
 .vote-hero{background:#f8fafc;border:1.5px solid #e2e8f0;border-radius:20px;padding:18px 16px 20px;text-align:center;margin-bottom:12px;}
 .vote-hero-eyebrow{font-size:10px;letter-spacing:3px;font-weight:800;color:var(--muted);text-transform:uppercase;margin-bottom:8px;font-family:'Assistant',sans-serif;}
 .vote-hero-title{font-size:clamp(14px,4vw,19px);font-weight:800;color:var(--knesset);line-height:1.35;margin-bottom:10px;}
 .vote-hero-meta{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;font-size:11px;margin-bottom:16px;text-align:right;}
-.vote-hero-meta span{background:rgba(26,58,92,.07);border:1px solid rgba(26,58,92,.12);border-radius:20px;padding:3px 12px;font-weight:600;color:var(--knesset);font-family:'Assistant',sans-serif;}
 
 /* Buttons */
 .btn{padding:14px 20px;border-radius:14px;border:none;font-weight:800;font-size:16px;cursor:pointer;font-family:'Rubik',sans-serif;transition:all .1s;position:relative;top:0;}
 .btn:active{top:var(--btn-depth);box-shadow:none!important;}
 .btn-blue{background:var(--knesset);color:#fff;box-shadow:0 var(--btn-depth) 0 #0d2240,var(--shadow);}
-.btn-red {background:var(--accent); color:#fff;box-shadow:0 var(--btn-depth) 0 #b91c1c,var(--shadow);}
+.btn-red{background:var(--accent);color:#fff;box-shadow:0 var(--btn-depth) 0 #b91c1c,var(--shadow);}
 .btn-ghost{background:transparent;border:1.5px solid #e2e8f0;color:var(--muted);}
 .btn-ghost:hover{border-color:var(--knesset);color:var(--knesset);}
 .btn-sm{background:rgba(255,255,255,.9);border:1.5px solid rgba(26,58,92,.15);color:var(--knesset);border-radius:10px;padding:7px 14px;cursor:pointer;font-size:13px;font-weight:700;font-family:'Rubik',sans-serif;transition:all .2s;backdrop-filter:blur(4px);}
 .btn-sm:hover{background:var(--knesset);color:#fff;border-color:var(--knesset);}
 .btn-wa{background:linear-gradient(135deg,#128C7E,#25D366);border:none;border-radius:12px;padding:13px 18px;color:#fff;font-weight:800;font-size:14px;cursor:pointer;font-family:'Rubik',sans-serif;box-shadow:0 4px 0 #0d6e62;position:relative;top:0;transition:all .1s;}
 .btn-wa:active{top:4px;box-shadow:none;}
-
 .credit-footer{text-align:center;padding:10px;font-size:12px;color:var(--muted);font-family:'Assistant',sans-serif;flex-shrink:0;}
 
-/* ═══════════════════════════════
-   SPLASH / MISSION
-═══════════════════════════════ */
-#screen-splash{
-  align-items:center;justify-content:center;gap:22px;flex-direction:column;
-  background:linear-gradient(180deg,#a8d8f0 0%,#c9e8f8 40%,#e8f4fd 100%);
-}
+/* SPLASH */
+#screen-splash{align-items:center;justify-content:center;gap:22px;flex-direction:column;background:linear-gradient(180deg,#a8d8f0 0%,#c9e8f8 40%,#e8f4fd 100%);}
 .splash-icon{font-size:84px;animation:float 1.2s ease-in-out infinite;}
 .splash-eyebrow{font-size:11px;letter-spacing:3px;font-weight:800;color:var(--muted);text-transform:uppercase;font-family:'Assistant',sans-serif;}
 .splash-headline{font-size:clamp(20px,6vw,28px);font-weight:900;color:var(--knesset);text-align:center;padding:0 24px;line-height:1.3;}
 .splash-chip{font-size:17px;font-weight:800;padding:9px 26px;border-radius:30px;border:2.5px solid;}
-.splash-chip.for    {color:var(--for-color);   border-color:var(--for-color);   background:var(--for-bg);}
+.splash-chip.for{color:var(--for-color);border-color:var(--for-color);background:var(--for-bg);}
 .splash-chip.against{color:var(--against-color);border-color:var(--against-color);background:var(--against-bg);}
-.splash-ring{
-  width:96px;height:96px;border-radius:50%;
-  background:var(--knesset);
-  display:flex;align-items:center;justify-content:center;
-  box-shadow:0 6px 0 #0d2240,0 12px 28px rgba(26,58,92,.3);
-  animation:ringPop 1s ease-in-out infinite;
-}
+.splash-ring{width:96px;height:96px;border-radius:50%;background:var(--knesset);display:flex;align-items:center;justify-content:center;box-shadow:0 6px 0 #0d2240,0 12px 28px rgba(26,58,92,.3);animation:ringPop 1s ease-in-out infinite;}
 @keyframes ringPop{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
 .splash-num{font-size:46px;font-weight:900;color:var(--gold);font-family:monospace;}
 
-/* ═══════════════════════════════
-   BLITZ GAME
-═══════════════════════════════ */
+/* BLITZ GAME */
 #screen-blitz{background:linear-gradient(180deg,#a8d8f0 0%,#c9e8f8 22%,#e8f4fd 44%);}
-.blitz-wrap{
-  max-width:460px;margin:0 auto;width:100%;
-  display:flex;flex-direction:column;
-  height:100dvh;
-  padding:10px 12px 6px;
-  gap:7px;overflow:hidden;
-}
+.blitz-wrap{max-width:460px;margin:0 auto;width:100%;display:flex;flex-direction:column;height:100dvh;padding:10px 12px 6px;gap:7px;overflow:hidden;}
 
 /* HUD */
-.hud{
-  background:var(--white);border:1.5px solid rgba(26,58,92,.1);
-  border-radius:16px;padding:8px 12px;
-  display:flex;align-items:center;justify-content:space-between;
-  box-shadow:var(--shadow);flex-shrink:0;
-}
+.hud{background:var(--white);border:1.5px solid rgba(26,58,92,.1);border-radius:16px;padding:8px 12px;display:flex;align-items:center;justify-content:space-between;box-shadow:var(--shadow);flex-shrink:0;}
 .hud-box{text-align:center;flex:1;}
 .hud-label{font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);font-family:'Assistant',sans-serif;}
 .hud-val{font-size:21px;font-weight:900;color:var(--knesset);font-family:monospace;line-height:1.1;}
@@ -170,12 +110,8 @@ h1.main-title{font-size:clamp(24px,7vw,34px);font-weight:900;color:var(--knesset
 .heart.lost{filter:grayscale(1) opacity(.25);transform:scale(.55);}
 
 /* Reminder */
-.reminder{
-  border-radius:11px;padding:6px 12px;text-align:center;flex-shrink:0;
-  font-weight:800;font-size:12px;font-family:'Assistant',sans-serif;
-  display:flex;align-items:center;justify-content:center;gap:6px;border:2px solid;
-}
-.reminder.for    {background:var(--for-bg);   border-color:var(--for-border);   color:var(--for-color);}
+.reminder{border-radius:11px;padding:6px 12px;text-align:center;flex-shrink:0;font-weight:800;font-size:12px;font-family:'Assistant',sans-serif;display:flex;align-items:center;justify-content:center;gap:6px;border:2px solid;}
+.reminder.for{background:var(--for-bg);border-color:var(--for-border);color:var(--for-color);}
 .reminder.against{background:var(--against-bg);border-color:var(--against-border);color:var(--against-color);}
 
 /* Progress */
@@ -187,101 +123,82 @@ h1.main-title{font-size:clamp(24px,7vw,34px);font-weight:900;color:var(--knesset
 .timer-bg{height:5px;background:rgba(26,58,92,.08);border-radius:5px;overflow:hidden;flex-shrink:0;}
 .timer-fill{height:100%;border-radius:5px;background:linear-gradient(90deg,var(--knesset),var(--blue));transform-origin:right center;}
 .timer-fill.ticking{animation:timerTick linear forwards;}
-.timer-fill.urgent {background:linear-gradient(90deg,#b91c1c,var(--accent));animation:timerTick linear forwards,urgPulse .4s ease infinite alternate;}
+.timer-fill.urgent{background:linear-gradient(90deg,#b91c1c,var(--accent));animation:timerTick linear forwards,urgPulse .4s ease infinite alternate;}
 @keyframes timerTick{from{transform:scaleX(1)}to{transform:scaleX(0)}}
 @keyframes urgPulse{from{opacity:1}to{opacity:.35}}
 
 /* Combo */
 .combo{display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:900;padding:2px 9px;border-radius:20px;transition:all .2s cubic-bezier(.34,1.56,.64,1);white-space:nowrap;}
-.combo.c0 {color:var(--muted);border:1px solid rgba(26,58,92,.1);}
+.combo.c0{color:var(--muted);border:1px solid rgba(26,58,92,.1);}
 .combo.con{background:var(--gold);color:#fff;}
 .combo.cx2{background:var(--accent);color:#fff;box-shadow:0 0 10px rgba(230,57,70,.35);}
 @keyframes comboPop{0%{transform:scale(1)}45%{transform:scale(1.45)}100%{transform:scale(1)}}
 .combo.pop{animation:comboPop .3s cubic-bezier(.34,1.56,.64,1);}
 
 /* ═══════════════════════════════
-   GRID 3×3
+   GRID — MK CARDS (revised)
 ═══════════════════════════════ */
 .grid{
   flex:1;
   display:grid;
   grid-template-columns:repeat(3,1fr);
   grid-template-rows:repeat(3,1fr);
-  gap:7px;
+  gap:8px;
   min-height:0;
 }
 .cell{
-  border-radius:14px;
+  border-radius:16px;
   background:rgba(255,255,255,.38);
   border:2px dashed rgba(26,58,92,.12);
   position:relative;overflow:hidden;
   display:flex;align-items:center;justify-content:center;
 }
 
-/* MK card — FULL NAME prominent */
 .mk-card{
   position:absolute;inset:3px;
-  border-radius:11px;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  gap:2px;
+  border-radius:12px;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
   cursor:pointer;
-  border:2.5px solid transparent;
+  border:3px solid transparent;
   transform:scale(0);
   transition:transform .22s cubic-bezier(.34,1.56,.64,1);
-  padding:6px 5px 5px;
+  padding:8px 6px;
   -webkit-tap-highlight-color:transparent;
   overflow:hidden;
+  /* subtle inner shadow to add depth */
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.6);
 }
 .mk-card.visible{transform:scale(1);}
-.mk-card.hiding {transform:scale(0) rotate(8deg);transition:transform .18s ease-in;}
-.mk-card.for    {background:var(--for-bg);    border-color:var(--for-border);}
+.mk-card.hiding{transform:scale(0) rotate(8deg);transition:transform .18s ease-in;}
+.mk-card.for{background:var(--for-bg);border-color:var(--for-border);}
 .mk-card.against{background:var(--against-bg);border-color:var(--against-border);}
 .mk-card.abstain{background:var(--abstain-bg);border-color:var(--abstain-border);}
 
-/* Vote dot — small colored indicator at top */
-.mk-dot{
-  width:8px;height:8px;border-radius:50%;flex-shrink:0;
-  display:none;
-}
-
-/* Full name — UPDATED FONT SIZE */
+/* ── שם מלא — MAIN ELEMENT ── */
 .mk-fname{
-  font-size: clamp(14px, 3.5vw, 20px);
-  font-weight: 800;
-  text-align: center;
-  line-height: 1.15;
-  color: var(--text);
-  padding: 0 3px;
-  width: 100%;
-  word-break: break-word;
-  hyphens: auto;
+  /* הגדלה: clamp מ-13px ל-18px לפי רוחב תא */
+  font-size:clamp(13px, 3.8vw, 18px);
+  font-weight:900;
+  text-align:center;
+  line-height:1.2;
+  width:100%;
+  word-break:break-word;
+  hyphens:auto;
+  /* שם משפחה בשורה אחת, שם פרטי בשורה שנייה → נעשה ב-JS */
 }
 .mk-card.for     .mk-fname{color:var(--for-color);}
 .mk-card.against .mk-fname{color:var(--against-color);}
 .mk-card.abstain .mk-fname{color:var(--abstain-color);}
 
-/* Faction — UPDATED FONT SIZE */
-.mk-faction{
-  font-size: clamp(10px, 2vw, 13px);
-  font-weight: 600;
-  text-align: center;
-  color: var(--muted);
-  font-family: 'Assistant', sans-serif;
-  padding: 0 2px;
-  width: 100%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  line-height: 1.1;
-  margin-top: 2px;
-}
+/* ── סיעה הוסרה לפי בקשה ── */
 
 /* Hit animation */
 @keyframes hitBurst{0%{transform:scale(1);opacity:1}50%{transform:scale(1.3);opacity:.8}100%{transform:scale(0);opacity:0}}
 .mk-card.hit{animation:hitBurst .22s ease forwards;}
 
 /* Miss X */
-.miss-x{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:28px;opacity:0;pointer-events:none;border-radius:12px;}
+.miss-x{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:28px;opacity:0;pointer-events:none;border-radius:14px;}
 @keyframes missFlash{0%{opacity:.9}100%{opacity:0}}
 .miss-x.flash{animation:missFlash .55s ease forwards;}
 
@@ -298,24 +215,12 @@ h1.main-title{font-size:clamp(24px,7vw,34px);font-weight:900;color:var(--knesset
 
 /* Flash overlay */
 .flash-overlay{position:fixed;inset:0;z-index:50;pointer-events:none;opacity:0;transition:opacity .15s;}
-.flash-overlay.red  {background:rgba(220,38,38,.14);}
+.flash-overlay.red{background:rgba(220,38,38,.14);}
 .flash-overlay.green{background:rgba(22,163,74,.14);}
 
-/* ═══════════════════════════════
-   END SCREEN
-═══════════════════════════════ */
-#screen-end{
-  align-items:center;justify-content:center;
-  background:linear-gradient(180deg,#a8d8f0 0%,#c9e8f8 30%,#e8f4fd 70%);
-  padding:20px;overflow-y:auto;
-}
-.end-card{
-  background:var(--white);border-radius:24px;padding:24px 20px 20px;
-  max-width:400px;width:100%;text-align:center;
-  box-shadow:var(--shadow-lg);
-  display:flex;flex-direction:column;align-items:center;gap:12px;
-  animation:endPop .4s cubic-bezier(.34,1.56,.64,1);
-}
+/* END SCREEN */
+#screen-end{align-items:center;justify-content:center;background:linear-gradient(180deg,#a8d8f0 0%,#c9e8f8 30%,#e8f4fd 70%);padding:20px;overflow-y:auto;}
+.end-card{background:var(--white);border-radius:24px;padding:24px 20px 20px;max-width:400px;width:100%;text-align:center;box-shadow:var(--shadow-lg);display:flex;flex-direction:column;align-items:center;gap:12px;animation:endPop .4s cubic-bezier(.34,1.56,.64,1);}
 @keyframes endPop{from{opacity:0;transform:scale(.88)}to{opacity:1;transform:scale(1)}}
 .end-score{font-size:52px;font-weight:900;font-family:monospace;color:var(--knesset);}
 .end-score span{font-size:14px;color:var(--muted);font-weight:500;}
@@ -324,14 +229,10 @@ h1.main-title{font-size:clamp(24px,7vw,34px);font-weight:900;color:var(--knesset
 .end-stat-label{font-size:11px;color:var(--muted);font-weight:600;font-family:'Assistant',sans-serif;margin-bottom:4px;}
 .end-stat-val{font-size:26px;font-weight:900;font-family:monospace;}
 .end-actions{display:flex;gap:10px;width:100%;}
-
-/* Score bump on HUD */
 @keyframes scoreBump{0%{transform:scale(1)}50%{transform:scale(1.5)}100%{transform:scale(1)}}
 .score-bump{animation:scoreBump .35s cubic-bezier(.175,.885,.32,1.275);}
 
-/* ═══════════════════════════════
-   MODAL
-═══════════════════════════════ */
+/* MODAL */
 .modal-overlay{position:fixed;inset:0;z-index:100;background:rgba(15,30,60,.55);backdrop-filter:blur(8px);display:flex;align-items:flex-end;justify-content:center;animation:fadeIn .2s ease;}
 .modal-box{background:var(--white);border-radius:24px 24px 0 0;padding:24px 20px;width:100%;max-width:480px;text-align:center;animation:slideUp .35s cubic-bezier(.34,1.56,.64,1);padding-bottom:calc(32px + env(safe-area-inset-bottom,0px));}
 @keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
@@ -341,18 +242,89 @@ h1.main-title{font-size:clamp(24px,7vw,34px);font-weight:900;color:var(--knesset
 .modal-step-text{color:var(--muted);font-size:14px;line-height:1.6;font-family:'Assistant',sans-serif;}
 .modal-step-text strong{color:var(--knesset);}
 
-/* ═══════════════════════════════
-   RESPONSIVE — UPDATED FONT SIZES
-═══════════════════════════════ */
+/* INTRO SCREEN */
+#screen-intro{
+  background:linear-gradient(180deg,#a8d8f0 0%,#c9e8f8 40%,#e8f4fd 100%);
+  align-items:center;justify-content:center;
+}
+.intro-wrap{
+  max-width:400px;width:100%;
+  display:flex;flex-direction:column;align-items:center;
+  padding:28px 24px;gap:18px;
+}
+.intro-eyebrow{font-size:10px;letter-spacing:3px;font-weight:800;color:var(--muted);text-transform:uppercase;font-family:'Assistant',sans-serif;}
+.intro-mission{font-size:clamp(16px,5vw,22px);font-weight:900;color:var(--knesset);text-align:center;line-height:1.3;}
+.intro-names{
+  display:flex;flex-direction:column;gap:8px;width:100%;
+}
+.intro-name-row{
+  display:flex;align-items:center;gap:12px;
+  background:var(--white);border-radius:14px;
+  padding:10px 16px;
+  box-shadow:var(--shadow);
+  animation:introRowIn .35s cubic-bezier(.34,1.56,.64,1) both;
+}
+@keyframes introRowIn{from{opacity:0;transform:translateX(20px)}to{opacity:1;transform:translateX(0)}}
+.intro-name-num{font-size:13px;font-weight:900;font-family:monospace;color:var(--muted);width:22px;flex-shrink:0;}
+.intro-name-text{font-size:17px;font-weight:800;flex:1;}
+.intro-name-text.for    {color:var(--for-color);}
+.intro-name-text.against{color:var(--against-color);}
+.intro-name-faction{font-size:11px;color:var(--muted);font-family:'Assistant',sans-serif;font-weight:600;}
+.intro-footer{width:100%;display:flex;flex-direction:column;align-items:center;gap:6px;}
+.intro-timer-bar{width:100%;height:4px;background:rgba(26,58,92,.1);border-radius:4px;overflow:hidden;}
+.intro-timer-fill{height:100%;background:var(--knesset);border-radius:4px;width:100%;}
+.intro-timer-fill.running{animation:introTimer linear forwards;}
+@keyframes introTimer{from{width:100%}to{width:0%}}
+.intro-skip-hint{font-size:12px;color:var(--muted);font-family:'Assistant',sans-serif;font-weight:600;}
+
+/* WARNING FLASH before card disappears */
+@keyframes warnFlash{0%,100%{opacity:1}50%{opacity:.25}}
+.mk-card.warning{animation:warnFlash .25s ease 3;}
+
+/* Miss name float */
+.miss-name-float{
+  position:fixed;pointer-events:none;z-index:201;
+  font-size:16px;font-weight:900;font-family:'Rubik',sans-serif;
+  color:#fff;background:rgba(220,38,38,.85);
+  padding:5px 14px;border-radius:10px;
+  white-space:nowrap;opacity:0;
+}
+@keyframes missNameAnim{
+  0%  {opacity:0;transform:translate(-50%,-40%) scale(.8)}
+  20% {opacity:1;transform:translate(-50%,-50%) scale(1.05)}
+  70% {opacity:1;transform:translate(-50%,-70%) scale(1)}
+  100%{opacity:0;transform:translate(-50%,-110%) scale(.9)}
+}
+.miss-name-float.show{animation:missNameAnim 1.4s ease forwards;}
+
+/* RESULTS SCREEN */
+#screen-results{
+  background:linear-gradient(180deg,#a8d8f0 0%,#c9e8f8 30%,#e8f4fd 70%);
+  padding:16px;overflow-y:auto;align-items:center;
+}
+.results-card{
+  background:var(--white);border-radius:22px;padding:20px 16px;
+  max-width:400px;width:100%;
+  box-shadow:var(--shadow-lg);
+  display:flex;flex-direction:column;gap:14px;
+  animation:endPop .4s cubic-bezier(.34,1.56,.64,1);
+}
+.results-section-title{font-size:12px;font-weight:800;color:var(--muted);letter-spacing:2px;text-transform:uppercase;font-family:'Assistant',sans-serif;margin-bottom:4px;}
+.results-name-list{display:flex;flex-direction:column;gap:5px;}
+.results-name-row{display:flex;align-items:center;gap:10px;padding:7px 12px;border-radius:10px;font-size:14px;font-weight:700;}
+.results-name-row.caught{background:rgba(22,163,74,.08);color:var(--for-color);}
+.results-name-row.missed{background:rgba(220,38,38,.07);color:var(--against-color);}
+.results-name-icon{font-size:15px;flex-shrink:0;}
+
+/* RESPONSIVE */
 @media(max-height:660px){
-  .mk-faction{display:none;}
-  .mk-fname{font-size: clamp(12px, 3vw, 16px);}
   .hud-val{font-size:18px;}
   .splash-icon{font-size:60px;}
+  .mk-fname{font-size:clamp(11px,3vw,15px);}
 }
 @media(max-height:580px){
-  .mk-fname{font-size: 12px;}
   .grid{gap:5px;}
+  .mk-fname{font-size:11px;}
 }
 </style>
 </head>
@@ -386,19 +358,16 @@ h1.main-title{font-size:clamp(24px,7vw,34px);font-weight:900;color:var(--knesset
         <button class="btn-sm" onclick="openModal()">❓ איך משחקים?</button>
       </div>
     </div>
-
     <div class="home-card">
       <div class="vote-hero">
         <div class="vote-hero-eyebrow">נושא ההצבעה</div>
         <div class="vote-hero-title" id="hero-title">טוען…</div>
         <div class="vote-hero-meta" id="hero-meta"></div>
-
         <div style="display:flex;justify-content:center;gap:10px;margin-bottom:16px;flex-wrap:wrap">
           <span style="font-size:12px;font-weight:700;color:var(--for-color);background:var(--for-bg);border:1.5px solid var(--for-border);border-radius:20px;padding:3px 12px;font-family:'Assistant',sans-serif">🟢 בעד</span>
           <span style="font-size:12px;font-weight:700;color:var(--against-color);background:var(--against-bg);border:1.5px solid var(--against-border);border-radius:20px;padding:3px 12px;font-family:'Assistant',sans-serif">🔴 נגד</span>
           <span style="font-size:12px;font-weight:700;color:var(--abstain-color);background:var(--abstain-bg);border:1.5px solid var(--abstain-border);border-radius:20px;padding:3px 12px;font-family:'Assistant',sans-serif">🟡 נמנע</span>
         </div>
-
         <button class="btn btn-red" onclick="startSplash()" style="width:100%;font-size:17px;padding:16px">⚡ התחל בליץ</button>
       </div>
     </div>
@@ -406,73 +375,69 @@ h1.main-title{font-size:clamp(24px,7vw,34px);font-weight:900;color:var(--knesset
   <div class="credit-footer">פיתוח: גיל פלדמן</div>
 </div>
 
+<!-- INTRO -->
+<div id="screen-intro" class="screen">
+  <div class="intro-wrap">
+    <div class="intro-eyebrow">הכר את המטרות שלך</div>
+    <div class="intro-mission" id="intro-mission">—</div>
+    <div class="intro-names" id="intro-names"></div>
+    <div class="intro-footer">
+      <div class="intro-timer-bar"><div class="intro-timer-fill" id="intro-timer-fill"></div></div>
+      <div class="intro-skip-hint">לחץ להתחיל ⚡</div>
+    </div>
+  </div>
+</div>
+
 <div id="screen-splash" class="screen">
   <div class="splash-icon" id="splash-icon">🎯</div>
   <div class="splash-eyebrow">המשימה שלך</div>
   <div class="splash-headline" id="splash-headline">—</div>
   <div class="splash-chip" id="splash-chip">—</div>
-  <div class="splash-ring">
-    <div class="splash-num" id="splash-num">3</div>
-  </div>
+  <div class="splash-ring"><div class="splash-num" id="splash-num">3</div></div>
 </div>
 
 <div id="screen-blitz" class="screen">
   <div class="blitz-wrap" id="blitz-wrap">
-
     <div class="hud">
-      <div class="hud-box">
-        <div class="hud-label">זמן</div>
-        <div class="hud-val" id="h-time">30</div>
-      </div>
+      <div class="hud-box"><div class="hud-label">זמן</div><div class="hud-val" id="h-time">30</div></div>
       <div class="hud-div"></div>
-      <div class="hud-box">
-        <div class="hud-label">ניקוד</div>
-        <div class="hud-val" id="h-score" style="color:var(--gold)">0</div>
-      </div>
+      <div class="hud-box"><div class="hud-label">ניקוד</div><div class="hud-val" id="h-score" style="color:var(--gold)">0</div></div>
       <div class="hud-div"></div>
       <div class="hud-box">
         <div class="hud-label">רצף</div>
-        <div style="display:flex;justify-content:center;margin-top:2px">
-          <span class="combo c0" id="h-combo">0🔥</span>
-        </div>
+        <div style="display:flex;justify-content:center;margin-top:2px"><span class="combo c0" id="h-combo">0🔥</span></div>
       </div>
       <div class="hud-div"></div>
       <div class="hud-box">
         <div class="hud-label">חיים</div>
-        <div class="hearts">
-          <span class="heart" id="hrt1">❤️</span>
-          <span class="heart" id="hrt2">❤️</span>
-          <span class="heart" id="hrt3">❤️</span>
-        </div>
+        <div class="hearts"><span class="heart" id="hrt1">❤️</span><span class="heart" id="hrt2">❤️</span><span class="heart" id="hrt3">❤️</span></div>
       </div>
     </div>
-
     <div class="reminder" id="g-reminder">🎯 מטרה</div>
-
     <div style="flex-shrink:0">
-      <div class="prog-row">
-        <span>לכדת</span>
-        <span id="g-prog-label">0/0</span>
-      </div>
+      <div class="prog-row"><span>לכדת</span><span id="g-prog-label">0/0</span></div>
       <div class="prog-bg"><div class="prog-fill" id="g-prog" style="width:0%"></div></div>
     </div>
-
     <div class="timer-bg"><div class="timer-fill" id="g-timer"></div></div>
-
     <div class="grid" id="grid"></div>
-
     <div style="display:flex;justify-content:center;flex-shrink:0;padding-bottom:2px">
       <button class="btn-sm" onclick="confirmQuit()" style="font-size:11px;padding:5px 14px;opacity:.7">✕ עצור</button>
     </div>
-
   </div>
+</div>
+
+<!-- RESULTS — names caught/missed -->
+<div id="screen-results" class="screen">
+  <div class="results-card" id="results-card"></div>
 </div>
 
 <div id="screen-end" class="screen">
   <div class="end-card" id="end-card"></div>
 </div>
 
-</div><div id="modal" class="modal-overlay" style="display:none" onclick="if(event.target===this)closeModal()">
+</div>
+
+<div id="modal" class="modal-overlay" style="display:none" onclick="if(event.target===this)closeModal()">
   <div class="modal-box">
     <div style="width:40px;height:4px;background:#e2e8f0;border-radius:4px;margin:0 auto 18px"></div>
     <div class="modal-title">⚡ איך משחקים בליץ?</div>
@@ -488,46 +453,34 @@ h1.main-title{font-size:clamp(24px,7vw,34px);font-weight:900;color:var(--knesset
 <div class="flash-overlay" id="flash"></div>
 
 <script>
-/* ═══════════════════════════════
-   CONFIG
-═══════════════════════════════ */
 const _urlParams  = new URLSearchParams(window.location.search);
 const VOTE_ID     = _urlParams.get("G") || _urlParams.get("vote") || "44642";
-const API_BASES   = ["https://www.knesset.gov.il","https://knesset.gov.il","https://main.knesset.gov.il"];
-const DETAIL_PATH = "/WebSiteApi/knessetapi/Votes/GetVoteDetails/";
 const LOG_URL     = "https://script.google.com/macros/s/AKfycbylf9toWaPCjkCosm1orC3sMinDDzJh9NAOiAFLex9vBQmXcxIYCVr4F5WDYvVClKYe/exec";
 
-const GAME_SECS     = 30;
-const SPAWN_START   = 900;   // ms between spawns at t=0
-const SPAWN_END     = 300;   // ms between spawns at t=30s
-const LIFE_START    = 1600;  // mk lifespan ms at t=0
-const LIFE_END      = 700;   // mk lifespan ms at t=30s
-const MAX_ACTIVE    = [1, 2, 3]; // at 0s, 10s, 20s
-const TARGET_CHANCE = 0.55;  // min probability of spawning a target
+const GAME_SECS   = 30;
+const SPAWN_START = 900;
+const SPAWN_END   = 300;
+/* ── הגדלת זמן ישיבה: +400ms בכל שלב ── */
+const LIFE_START  = 2000;   // היה 1600
+const LIFE_END    = 1100;   // היה 700
+/* ── מקסימום פעיל: מתחיל ב-1, לא קופץ ל-3 לפני סוף ── */
+const MAX_ACTIVE  = [1, 2, 3];  // 0–12s, 12–22s, 22–30s
+const TARGET_CHANCE = 0.55;
 
-/* ═══════════════════════════════
-   STATE
-═══════════════════════════════ */
-let voteData = null;  // { title, date, decision, members, forM, againstM, abstainM }
-let mission  = null;  // "for" | "against"
-let gs       = null;  // game state
+let voteData = null;
+let mission  = null;
+let gs       = null;
 let clockInt = null;
 let spawnInt = null;
 let lastSpawn= 0;
 
-/* ═══════════════════════════════
-   UTILS
-═══════════════════════════════ */
 const sleep = ms => new Promise(r => setTimeout(r, ms));
-const lerp  = (a,b,t) => a + (b-a)*t;
+const lerp  = (a,b,t) => a+(b-a)*t;
 const clamp = (v,lo,hi) => Math.min(hi,Math.max(lo,v));
 function esc(s){ return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
 function shuffle(arr){ const a=[...arr]; for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; }
 function showScreen(id){ document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active")); document.getElementById("screen-"+id).classList.add("active"); }
 
-/* ═══════════════════════════════
-   API
-═══════════════════════════════ */
 function normVote(t){
   if(!t)return null; t=t.trim();
   if(t==="בעד")return "for";
@@ -552,85 +505,59 @@ async function init(){
   }
   try{
     if(!data) throw new Error("לא ניתן להגיע לשרתי הכנסת");
-
-      const hdr     = data.VoteHeader?.[0] || {};
-      const members = (data.VoteDetails||[])
-        .filter(d => normVote(d.Title))
-        .map(d => ({
-          name:    (d.MkName||"").trim(),
-          vote:    normVote(d.Title),
-          faction: (d.FactionName||"").trim(),
-          mkId:    d.MkId || null
-        }));
-
-      if(members.length < 6) throw new Error("מעט מדי חברי כנסת");
-
-      voteData = {
-        title:    hdr.ItemTitle || hdr.SubjectName || hdr.VoteSubject || `הצבעה ${VOTE_ID}`,
-        date:     hdr.VoteDateStr || "",
-        decision: hdr.Decision   || "",
-        members,
-        forM:     members.filter(m=>m.vote==="for"),
-        againstM: members.filter(m=>m.vote==="against"),
-        abstainM: members.filter(m=>m.vote==="abstain"),
-      };
-
-      // Populate home
-      document.getElementById("hero-title").textContent = voteData.title;
-
-      const forCount     = voteData.forM.length;
-      const againstCount = voteData.againstM.length;
-      const abstainCount = voteData.abstainM.length;
-      const decStyle = voteData.decision
-        ? (voteData.decision.includes("לא")
-            ? "color:#b91c1c;background:rgba(220,38,38,.08);border-color:rgba(220,38,38,.28)"
-            : "color:#15803d;background:rgba(22,163,74,.08);border-color:rgba(22,163,74,.28)")
-        : "";
-
-      document.getElementById("hero-meta").innerHTML = `
-        <div style="display:flex;flex-direction:column;gap:9px;width:100%;text-align:right">
-          ${voteData.date ? `
-            <div style="display:flex;align-items:center;gap:8px;font-family:'Assistant',sans-serif;font-size:13px">
-              <span>📅</span>
-              <span style="color:var(--muted);font-weight:600">תאריך:</span>
-              <span style="font-weight:700;color:var(--knesset)">${esc(voteData.date)}</span>
-            </div>` : ""}
-          ${voteData.decision ? `
-            <div style="display:flex;align-items:center;gap:8px;font-family:'Assistant',sans-serif;font-size:13px">
-              <span>⚖️</span>
-              <span style="color:var(--muted);font-weight:600">תוצאה:</span>
-              <span style="font-weight:800;padding:2px 10px;border-radius:20px;border:1.5px solid;${decStyle}">${esc(voteData.decision)}</span>
-            </div>` : ""}
-          <div style="display:flex;align-items:center;gap:6px;font-family:'Assistant',sans-serif;font-size:13px;flex-wrap:wrap">
-            <span>🗳️</span>
-            <span style="color:var(--muted);font-weight:600">הצבעות:</span>
-            <span style="font-weight:700;color:var(--for-color);background:var(--for-bg);border:1.5px solid var(--for-border);border-radius:20px;padding:2px 10px">✓ בעד ${forCount}</span>
-            <span style="font-weight:700;color:var(--against-color);background:var(--against-bg);border:1.5px solid var(--against-border);border-radius:20px;padding:2px 10px">✗ נגד ${againstCount}</span>
-            ${abstainCount ? `<span style="font-weight:700;color:var(--abstain-color);background:var(--abstain-bg);border:1.5px solid var(--abstain-border);border-radius:20px;padding:2px 10px">↕ נמנע ${abstainCount}</span>` : ""}
-          </div>
+    const hdr     = data.VoteHeader?.[0] || {};
+    const members = (data.VoteDetails||[])
+      .filter(d => normVote(d.Title))
+      .map(d => ({
+        name:    (d.MkName||"").trim(),
+        vote:    normVote(d.Title),
+        faction: (d.FactionName||"").trim(),
+        mkId:    d.MkId || null
+      }));
+    if(members.length < 6) throw new Error("מעט מדי חברי כנסת");
+    voteData = {
+      title:    hdr.ItemTitle || hdr.SubjectName || hdr.VoteSubject || `הצבעה ${VOTE_ID}`,
+      date:     hdr.VoteDateStr || "",
+      decision: hdr.Decision   || "",
+      members,
+      forM:     members.filter(m=>m.vote==="for"),
+      againstM: members.filter(m=>m.vote==="against"),
+      abstainM: members.filter(m=>m.vote==="abstain"),
+    };
+    document.getElementById("hero-title").textContent = voteData.title;
+    const forCount=voteData.forM.length, againstCount=voteData.againstM.length, abstainCount=voteData.abstainM.length;
+    const decStyle = voteData.decision
+      ? (voteData.decision.includes("לא")
+          ? "color:#b91c1c;background:rgba(220,38,38,.08);border-color:rgba(220,38,38,.28)"
+          : "color:#15803d;background:rgba(22,163,74,.08);border-color:rgba(22,163,74,.28)")
+      : "";
+    document.getElementById("hero-meta").innerHTML = `
+      <div style="display:flex;flex-direction:column;gap:9px;width:100%;text-align:right">
+        ${voteData.date ? `<div style="display:flex;align-items:center;gap:8px;font-family:'Assistant',sans-serif;font-size:13px">
+          <span>📅</span><span style="color:var(--muted);font-weight:600">תאריך:</span>
+          <span style="font-weight:700;color:var(--knesset)">${esc(voteData.date)}</span></div>` : ""}
+        ${voteData.decision ? `<div style="display:flex;align-items:center;gap:8px;font-family:'Assistant',sans-serif;font-size:13px">
+          <span>⚖️</span><span style="color:var(--muted);font-weight:600">תוצאה:</span>
+          <span style="font-weight:800;padding:2px 10px;border-radius:20px;border:1.5px solid;${decStyle}">${esc(voteData.decision)}</span></div>` : ""}
+        <div style="display:flex;align-items:center;gap:6px;font-family:'Assistant',sans-serif;font-size:13px;flex-wrap:wrap">
+          <span>🗳️</span><span style="color:var(--muted);font-weight:600">הצבעות:</span>
+          <span style="font-weight:700;color:var(--for-color);background:var(--for-bg);border:1.5px solid var(--for-border);border-radius:20px;padding:2px 10px">✓ בעד ${forCount}</span>
+          <span style="font-weight:700;color:var(--against-color);background:var(--against-bg);border:1.5px solid var(--against-border);border-radius:20px;padding:2px 10px">✗ נגד ${againstCount}</span>
+          ${abstainCount ? `<span style="font-weight:700;color:var(--abstain-color);background:var(--abstain-bg);border:1.5px solid var(--abstain-border);border-radius:20px;padding:2px 10px">↕ נמנע ${abstainCount}</span>` : ""}
         </div>
-      `;
-
-      showScreen("home");
+      </div>`;
+    showScreen("home");
   }catch(err){
     document.getElementById("error-msg").textContent = "לא ניתן לטעון את ההצבעה. (" + err.message + ")";
     showScreen("error");
   }
 }
 
-/* ═══════════════════════════════
-   MODAL
-═══════════════════════════════ */
 function openModal(){ document.getElementById("modal").style.display="flex"; }
 function closeModal(){ document.getElementById("modal").style.display="none"; }
 
-/* ═══════════════════════════════
-   SPLASH
-═══════════════════════════════ */
 function startSplash(){
   if(!voteData) return;
-
-  // Pick mission — prefer groups with ≥8 members
   const opts = [];
   if(voteData.forM.length    >= 8) opts.push("for");
   if(voteData.againstM.length>= 8) opts.push("against");
@@ -641,33 +568,57 @@ function startSplash(){
   const mLabel = mission==="for" ? "בעד" : "נגד";
   const mEmoji = mission==="for" ? "🟢"  : "🔴";
   const cls    = mission;
+  const pool   = mission==="for" ? voteData.forM : voteData.againstM;
 
-  document.getElementById("splash-icon").textContent = mEmoji;
-  document.getElementById("splash-headline").textContent = `תפוס את מי שהצביע ${mLabel}!`;
-  const chip = document.getElementById("splash-chip");
-  chip.className = `splash-chip ${cls}`;
-  chip.textContent = `${mEmoji} ${mLabel}`;
-  document.getElementById("splash-num").textContent = "3";
-  showScreen("splash");
+  /* ── מסך היכרות ── */
+  const INTRO_SECS = 5;
+  // בחר עד 6 שמות בולטים (ראשונים לפי סדר ה-API — בד"כ מסודרים לפי סיעה)
+  const introNames = pool.slice(0,6);
+  document.getElementById("intro-mission").innerHTML =
+    `${mEmoji} תפוס: <strong style="color:var(--${cls==="for"?"for":"against"}-color)">${mLabel}</strong>`;
 
-  let c = 3;
-  const iv = setInterval(()=>{
-    c--;
-    document.getElementById("splash-num").textContent = c;
-    if(c <= 0){ clearInterval(iv); startGame(); }
-  }, 1000);
+  const namesEl = document.getElementById("intro-names");
+  namesEl.innerHTML = introNames.map((mk,i)=>`
+    <div class="intro-name-row" style="animation-delay:${i*0.07}s">
+      <span class="intro-name-num">${i+1}</span>
+      <span class="intro-name-text ${cls}">${esc(mk.name)}</span>
+      ${mk.faction ? `<span class="intro-name-faction">${esc(mk.faction)}</span>` : ""}
+    </div>`).join("");
+
+  // Timer bar
+  const fill = document.getElementById("intro-timer-fill");
+  fill.classList.remove("running"); fill.style.animationDuration="";
+  void fill.offsetWidth;
+  fill.style.animationDuration = INTRO_SECS+"s";
+  fill.classList.add("running");
+
+  showScreen("intro");
+
+  // Click anywhere on intro → skip to splash
+  const introEl = document.getElementById("screen-intro");
+  const skipFn = ()=>{ clearTimeout(introTimer); introEl.removeEventListener("click",skipFn); goSplash(); };
+  introEl.addEventListener("click", skipFn);
+  const introTimer = setTimeout(skipFn, INTRO_SECS*1000);
+
+  function goSplash(){
+    document.getElementById("splash-icon").textContent = mEmoji;
+    document.getElementById("splash-headline").textContent = `תפוס את מי שהצביע ${mLabel}!`;
+    const chip = document.getElementById("splash-chip");
+    chip.className = `splash-chip ${mission}`;
+    chip.textContent = `${mEmoji} ${mLabel}`;
+    document.getElementById("splash-num").textContent = "3";
+    showScreen("splash");
+    let c = 3;
+    const iv = setInterval(()=>{ c--; document.getElementById("splash-num").textContent=c; if(c<=0){clearInterval(iv);startGame();} }, 1000);
+  }
 }
 
-/* ═══════════════════════════════
-   BUILD GRID
-═══════════════════════════════ */
 function buildGrid(){
   const g = document.getElementById("grid");
   g.innerHTML = "";
   for(let i=0;i<9;i++){
     const cell = document.createElement("div");
-    cell.className = "cell";
-    cell.id = "cell-"+i;
+    cell.className="cell"; cell.id="cell-"+i;
     const mx = document.createElement("div");
     mx.className="miss-x"; mx.id="mx-"+i; mx.textContent="❌";
     cell.appendChild(mx);
@@ -675,338 +626,257 @@ function buildGrid(){
   }
 }
 
-/* ═══════════════════════════════
-   START GAME
-═══════════════════════════════ */
 function startGame(){
   buildGrid();
-
-  const targets = mission==="for"
-    ? [...voteData.forM]
-    : [...voteData.againstM];
-
-  const wrongs = mission==="for"
-    ? [...voteData.againstM, ...voteData.abstainM]
-    : [...voteData.forM,     ...voteData.abstainM];
-
+  const targets = mission==="for" ? [...voteData.forM] : [...voteData.againstM];
+  const wrongs  = mission==="for" ? [...voteData.againstM,...voteData.abstainM] : [...voteData.forM,...voteData.abstainM];
   gs = {
-    score: 0, lives: 3, combo: 0, maxCombo: 0,
-    caught: 0, missed: 0, mistakes: 0,
-    totalTargets: targets.length,
-    targets: shuffle(targets),
-    wrongs:  shuffle(wrongs),
-    tIdx: 0, wIdx: 0,
-    cells: new Array(9).fill(null),
-    startTime: Date.now(),
-    running: true,
-    timerSecs: GAME_SECS,
+    score:0, lives:3, combo:0, maxCombo:0,
+    caught:0, missed:0, mistakes:0,
+    totalTargets:targets.length,
+    targets:shuffle(targets), wrongs:shuffle(wrongs),
+    tIdx:0, wIdx:0,
+    cells:new Array(9).fill(null),
+    startTime:Date.now(), running:true, timerSecs:GAME_SECS,
+    caughtNames:[], missedNames:[],
   };
-
-  document.getElementById("h-time").style.color = "var(--knesset)";
-  updateHUD();
-  setReminder();
-  startTimerBar();
-
-  lastSpawn = 0;
-  spawnInt = setInterval(spawnTick, 80);
-  clockInt = setInterval(clockTick, 1000);
-
+  document.getElementById("h-time").style.color="var(--knesset)";
+  updateHUD(); setReminder(); startTimerBar();
+  lastSpawn=0;
+  spawnInt=setInterval(spawnTick,80);
+  clockInt=setInterval(clockTick,1000);
   showScreen("blitz");
 }
 
-/* ═══════════════════════════════
-   CLOCK
-═══════════════════════════════ */
 function clockTick(){
-  if(!gs?.running) return;
+  if(!gs?.running)return;
   gs.timerSecs--;
-  document.getElementById("h-time").textContent = gs.timerSecs;
-  if(gs.timerSecs <= 5) document.getElementById("h-time").style.color = "var(--accent)";
-  if(gs.timerSecs <= 0) endGame();
+  document.getElementById("h-time").textContent=gs.timerSecs;
+  if(gs.timerSecs<=5) document.getElementById("h-time").style.color="var(--accent)";
+  if(gs.timerSecs<=0) endGame();
 }
 
 function startTimerBar(){
-  const bar = document.getElementById("g-timer");
-  bar.classList.remove("ticking","urgent");
-  bar.style.animationDuration = "";
+  const bar=document.getElementById("g-timer");
+  bar.classList.remove("ticking","urgent"); bar.style.animationDuration="";
   void bar.offsetWidth;
-  bar.style.animationDuration = GAME_SECS+"s";
-  bar.classList.add("ticking");
-  setTimeout(()=>bar.classList.add("urgent"), (GAME_SECS-5)*1000);
+  bar.style.animationDuration=GAME_SECS+"s"; bar.classList.add("ticking");
+  setTimeout(()=>bar.classList.add("urgent"),(GAME_SECS-5)*1000);
 }
 
-/* ═══════════════════════════════
-   SPAWNER
-═══════════════════════════════ */
 function spawnTick(){
-  if(!gs?.running) return;
-  const elapsed = (Date.now()-gs.startTime)/1000;
-  const t       = clamp(elapsed/GAME_SECS, 0, 1);
-  const rate    = lerp(SPAWN_START, SPAWN_END, t);
-  const life    = lerp(LIFE_START,  LIFE_END,  t);
-
-  // How many can be active now
-  const maxNow  = elapsed < 10 ? MAX_ACTIVE[0] : elapsed < 20 ? MAX_ACTIVE[1] : MAX_ACTIVE[2];
-
-  const now = Date.now();
-  if(now - lastSpawn < rate) return;
-
-  const active = gs.cells.filter(c=>c!==null).length;
-  if(active >= maxNow) return;
-
-  const free = [];
+  if(!gs?.running)return;
+  const elapsed=(Date.now()-gs.startTime)/1000;
+  const t=clamp(elapsed/GAME_SECS,0,1);
+  const rate=lerp(SPAWN_START,SPAWN_END,t);
+  const life=lerp(LIFE_START,LIFE_END,t);
+  /* ── זמן חשיפה עולה ── */
+  const maxNow = elapsed<12 ? MAX_ACTIVE[0] : elapsed<22 ? MAX_ACTIVE[1] : MAX_ACTIVE[2];
+  const now=Date.now();
+  if(now-lastSpawn<rate)return;
+  const active=gs.cells.filter(c=>c!==null).length;
+  if(active>=maxNow)return;
+  const free=[];
   for(let i=0;i<9;i++) if(gs.cells[i]===null) free.push(i);
-  if(!free.length) return;
-
-  const cellIdx = free[Math.floor(Math.random()*free.length)];
-  const noTargets = gs.targets.length === 0;
-  const noWrongs  = gs.wrongs.length  === 0;
-  const isTarget  = noWrongs || (!noTargets && Math.random() < TARGET_CHANCE);
-
-  const pool = isTarget ? gs.targets : gs.wrongs;
-  const idx  = isTarget ? gs.tIdx++  : gs.wIdx++;
-  const mk   = pool[idx % pool.length];
-
-  spawnMK(cellIdx, mk, isTarget, life);
-  lastSpawn = now;
+  if(!free.length)return;
+  const cellIdx=free[Math.floor(Math.random()*free.length)];
+  const isTarget=gs.wrongs.length===0||(gs.targets.length>0&&Math.random()<TARGET_CHANCE);
+  const pool=isTarget?gs.targets:gs.wrongs;
+  const idx=isTarget?gs.tIdx++:gs.wIdx++;
+  const mk=pool[idx%pool.length];
+  spawnMK(cellIdx,mk,isTarget,life);
+  lastSpawn=now;
 }
 
-function spawnMK(cellIdx, mk, isTarget, lifespan){
-  const cell = document.getElementById("cell-"+cellIdx);
-  if(!cell) return;
+function spawnMK(cellIdx,mk,isTarget,lifespan){
+  const cell=document.getElementById("cell-"+cellIdx);
+  if(!cell)return;
+  const card=document.createElement("div");
+  card.className=`mk-card ${mk.vote}`;
 
-  const card = document.createElement("div");
-  card.className = `mk-card ${mk.vote}`;
-
-  // Split name into first name / last name for better display
-  const parts = mk.name.trim().split(" ");
-  const lastName  = parts[0] || "";
-  const firstName = parts.slice(1).join(" ");
-
-  // If name is too long, show it in two lines; faction below
-  card.innerHTML = `
-    <div class="mk-fname">${esc(lastName)}${firstName ? "<br>"+esc(firstName) : ""}</div>
-    ${mk.faction ? `<div class="mk-faction">${esc(mk.faction)}</div>` : ""}
-  `;
+  /* ── שם מלא בשתי שורות: שם משפחה גדול + שם פרטי קטן יותר ── */
+  const parts=mk.name.trim().split(" ");
+  const lastName=parts[0]||"";
+  const firstName=parts.slice(1).join(" ");
+  card.innerHTML=
+    `<div class="mk-fname">${esc(lastName)}</div>` +
+    (firstName ? `<div class="mk-fname" style="font-size:clamp(11px,3vw,15px);font-weight:700;opacity:.85">${esc(firstName)}</div>` : "");
 
   cell.appendChild(card);
   requestAnimationFrame(()=>card.classList.add("visible"));
 
-  const timeout = setTimeout(()=>{
-    if(!gs?.cells[cellIdx]) return;
-    // missed — was a target
+  const timeout=setTimeout(()=>{
+    if(!gs?.cells[cellIdx])return;
     if(isTarget){
-      gs.missed++;
-      gs.combo = 0;
-      updateHUD();
-      const mx = document.getElementById("mx-"+cellIdx);
-      if(mx){ mx.classList.add("flash"); setTimeout(()=>mx.classList.remove("flash"), 550); }
+      gs.missed++; gs.combo=0; updateHUD();
+      const mx=document.getElementById("mx-"+cellIdx);
+      if(mx){mx.classList.add("flash");setTimeout(()=>mx.classList.remove("flash"),550);}
     }
-    removeMK(cellIdx, card);
-  }, lifespan);
+    removeMK(cellIdx,card);
+  },lifespan);
 
-  gs.cells[cellIdx] = { mk, isTarget, timeout, card };
+  gs.cells[cellIdx]={mk,isTarget,timeout,card};
 
-  function onTap(e){
-    e.preventDefault(); e.stopPropagation();
-    handleTap(cellIdx, card, isTarget);
-  }
-  card.addEventListener("click",   onTap);
-  card.addEventListener("touchend", onTap, {passive:false});
+  function onTap(e){ e.preventDefault(); e.stopPropagation(); handleTap(cellIdx,card,isTarget); }
+  card.addEventListener("click",onTap);
+  card.addEventListener("touchend",onTap,{passive:false});
 }
 
-function removeMK(cellIdx, card){
-  if(gs) gs.cells[cellIdx] = null;
+function removeMK(cellIdx,card){
+  if(gs)gs.cells[cellIdx]=null;
   card.classList.add("hiding");
-  setTimeout(()=>card.remove(), 200);
+  setTimeout(()=>card.remove(),200);
 }
 
-/* ═══════════════════════════════
-   TAP HANDLER
-═══════════════════════════════ */
-function handleTap(cellIdx, card, isTarget){
-  if(!gs?.running || !gs.cells[cellIdx]) return;
-
+function handleTap(cellIdx,card,isTarget){
+  if(!gs?.running||!gs.cells[cellIdx])return;
   clearTimeout(gs.cells[cellIdx].timeout);
-  gs.cells[cellIdx] = null;
-
-  const rect = card.getBoundingClientRect();
-  const cx = rect.left + rect.width/2;
-  const cy = rect.top  + rect.height/2;
-
+  gs.cells[cellIdx]=null;
+  const rect=card.getBoundingClientRect();
+  const cx=rect.left+rect.width/2, cy=rect.top+rect.height/2;
   if(isTarget){
-    gs.combo++;
-    if(gs.combo > gs.maxCombo) gs.maxCombo = gs.combo;
-    gs.caught++;
-
-    const base  = 100;
-    const speed = Math.round(20 + Math.random()*30);
-    const mult  = gs.combo >= 6 ? 2 : gs.combo >= 3 ? 1.5 : 1;
-    const earned= Math.round((base + speed) * mult);
-    gs.score   += earned;
-
-    floatScore(`+${earned}`, cx, cy, "pos");
-    doFlash("green");
-
-    const sv = document.getElementById("h-score");
+    gs.combo++; if(gs.combo>gs.maxCombo)gs.maxCombo=gs.combo; gs.caught++;
+    if(!gs.caughtNames.includes(gs.cells[cellIdx]?.mk?.name)) gs.caughtNames.push(mk.name);
+    const base=100, speed=Math.round(20+Math.random()*30);
+    const mult=gs.combo>=6?2:gs.combo>=3?1.5:1;
+    const earned=Math.round((base+speed)*mult);
+    gs.score+=earned;
+    floatScore(`+${earned}`,cx,cy,"pos"); doFlash("green");
+    const sv=document.getElementById("h-score");
     sv.classList.remove("score-bump"); void sv.offsetWidth; sv.classList.add("score-bump");
-
-    card.classList.add("hit");
-    setTimeout(()=>card.remove(), 230);
-
-  } else {
-    gs.lives--;
-    gs.combo    = 0;
-    gs.mistakes++;
-    gs.score    = Math.max(0, gs.score - 150);
-
-    floatScore("-150", cx, cy, "neg");
-    doFlash("red");
-
-    const wrap = document.getElementById("blitz-wrap");
+    card.classList.add("hit"); setTimeout(()=>card.remove(),230);
+  }else{
+    gs.lives--; gs.combo=0; gs.mistakes++; gs.score=Math.max(0,gs.score-150);
+    floatScore("-150",cx,cy,"neg"); doFlash("red");
+    const wrap=document.getElementById("blitz-wrap");
     wrap.classList.remove("shake"); void wrap.offsetWidth; wrap.classList.add("shake");
-    setTimeout(()=>wrap.classList.remove("shake"), 300);
-
-    card.classList.add("hit");
-    setTimeout(()=>card.remove(), 230);
-
+    setTimeout(()=>wrap.classList.remove("shake"),300);
+    card.classList.add("hit"); setTimeout(()=>card.remove(),230);
     updateHUD();
-    if(gs.lives <= 0){ setTimeout(()=>endGame(), 420); return; }
+    if(gs.lives<=0){setTimeout(()=>endGame(),420);return;}
   }
-
   updateHUD();
 }
 
-/* ═══════════════════════════════
-   HUD & REMINDER
-═══════════════════════════════ */
 function updateHUD(){
-  if(!gs) return;
-  document.getElementById("h-score").textContent = gs.score.toLocaleString();
-  for(let i=1;i<=3;i++) document.getElementById("hrt"+i).classList.toggle("lost", i>gs.lives);
-
-  const {caught, totalTargets} = gs;
-  document.getElementById("g-prog-label").textContent = `${caught}/${totalTargets}`;
-  document.getElementById("g-prog").style.width = `${Math.min(100,(caught/Math.max(totalTargets,1))*100)}%`;
-
-  const cb = document.getElementById("h-combo");
-  const s  = gs.combo;
+  if(!gs)return;
+  document.getElementById("h-score").textContent=gs.score.toLocaleString();
+  for(let i=1;i<=3;i++) document.getElementById("hrt"+i).classList.toggle("lost",i>gs.lives);
+  const{caught,totalTargets}=gs;
+  document.getElementById("g-prog-label").textContent=`${caught}/${totalTargets}`;
+  document.getElementById("g-prog").style.width=`${Math.min(100,(caught/Math.max(totalTargets,1))*100)}%`;
+  const cb=document.getElementById("h-combo"), s=gs.combo;
   cb.classList.remove("pop"); void cb.offsetWidth;
-  if(s === 0)     { cb.className="combo c0";  cb.textContent=`0🔥`; }
-  else if(s < 6)  { cb.className="combo con pop"; cb.textContent=`${s}🔥`+(s>=3?" ×1.5":""); }
-  else            { cb.className="combo cx2 pop"; cb.textContent=`${s}🔥 ×2`; }
+  if(s===0){cb.className="combo c0";cb.textContent="0🔥";}
+  else if(s<6){cb.className="combo con pop";cb.textContent=`${s}🔥`+(s>=3?" ×1.5":"");}
+  else{cb.className="combo cx2 pop";cb.textContent=`${s}🔥 ×2`;}
 }
 
 function setReminder(){
-  const el   = document.getElementById("g-reminder");
-  const lbl  = mission==="for"?"בעד":"נגד";
-  const emoji= mission==="for"?"🟢":"🔴";
-  el.className = `reminder ${mission}`;
-  el.innerHTML = `${emoji} מטרה: מי שהצביע <strong>${lbl}</strong>`;
+  const el=document.getElementById("g-reminder");
+  const lbl=mission==="for"?"בעד":"נגד", emoji=mission==="for"?"🟢":"🔴";
+  el.className=`reminder ${mission}`;
+  el.innerHTML=`${emoji} מטרה: מי שהצביע <strong>${lbl}</strong>`;
 }
 
-/* ═══════════════════════════════
-   FX
-═══════════════════════════════ */
 function doFlash(color){
-  const el = document.getElementById("flash");
-  el.className = `flash-overlay ${color}`;
-  el.style.opacity = "1";
-  setTimeout(()=>{ el.style.opacity="0"; }, 270);
+  const el=document.getElementById("flash");
+  el.className=`flash-overlay ${color}`; el.style.opacity="1";
+  setTimeout(()=>{el.style.opacity="0";},270);
 }
 
-function floatScore(text, x, y, type){
-  const el = document.createElement("div");
-  el.className = `score-float ${type}`;
-  el.style.left = x+"px";
-  el.style.top  = y+"px";
-  el.textContent = text;
+function floatScore(text,x,y,type){
+  const el=document.createElement("div");
+  el.className=`score-float ${type}`;
+  el.style.left=x+"px"; el.style.top=y+"px"; el.textContent=text;
   document.body.appendChild(el);
   requestAnimationFrame(()=>el.classList.add("show"));
-  setTimeout(()=>el.remove(), 1000);
+  setTimeout(()=>el.remove(),1000);
 }
 
-/* ═══════════════════════════════
-   STOP / END
-═══════════════════════════════ */
+function showMissName(name,x,y){
+  const el=document.createElement("div");
+  el.className="miss-name-float";
+  el.style.left=x+"px"; el.style.top=y+"px";
+  el.textContent="✗ "+name;
+  document.body.appendChild(el);
+  requestAnimationFrame(()=>el.classList.add("show"));
+  setTimeout(()=>el.remove(),1500);
+}
+
 function stopLoops(){
-  clearInterval(spawnInt); clearInterval(clockInt);
-  spawnInt = clockInt = null;
-  const bar = document.getElementById("g-timer");
-  if(bar){ bar.classList.remove("ticking","urgent"); bar.style.animationDuration=""; }
-  if(gs) gs.running = false;
+  clearInterval(spawnInt); clearInterval(clockInt); spawnInt=clockInt=null;
+  const bar=document.getElementById("g-timer");
+  if(bar){bar.classList.remove("ticking","urgent");bar.style.animationDuration="";}
+  if(gs)gs.running=false;
 }
 
-function confirmQuit(){
-  if(confirm("לצאת מהמשחק?")) endGame();
-}
+function confirmQuit(){ if(confirm("לצאת מהמשחק?"))endGame(); }
 
 function endGame(){
-  if(!gs?.running) return;
+  if(!gs?.running)return;
   stopLoops();
-
-  const s      = gs;
-  const mLabel = mission==="for"?"בעד":"נגד";
-  const mEmoji = mission==="for"?"🟢":"🔴";
-  const title  = voteData.title;
-
-  // Log
+  const s=gs, mLabel=mission==="for"?"בעד":"נגד", mEmoji=mission==="for"?"🟢":"🔴", title=voteData.title;
   fetch(LOG_URL,{method:"POST",headers:{"Content-Type":"text/plain"},body:JSON.stringify({
-    game:"blitz", mission:mLabel, caught:s.caught, missed:s.missed,
-    mistakes:s.mistakes, score:s.score, max_combo:s.maxCombo,
-    vote_id:VOTE_ID, vote_name:title
+    game:"blitz",mission:mLabel,caught:s.caught,missed:s.missed,
+    mistakes:s.mistakes,score:s.score,max_combo:s.maxCombo,
+    vote_id:VOTE_ID,vote_name:title
   })}).catch(()=>{});
-
-  const shareText = encodeURIComponent(
-    `⚡ בליץ במליאה!\nתפסתי ${s.caught} ח"כים שהצביעו ${mLabel}\n"${title}"\nניקוד: ${s.score.toLocaleString()} | רצף מקס': ${s.maxCombo}🔥\n${window.location.href}`
-  );
-
-  const won = s.lives > 0;
-
-  document.getElementById("end-card").innerHTML = `
+  const shareText=encodeURIComponent(`⚡ בליץ במליאה!\nתפסתי ${s.caught} ח"כים שהצביעו ${mLabel}\n"${title}"\nניקוד: ${s.score.toLocaleString()} | רצף מקס': ${s.maxCombo}🔥\n${window.location.href}`);
+  const won=s.lives>0;
+  document.getElementById("end-card").innerHTML=`
     <div style="font-size:64px">${won?"⚡":"💔"}</div>
     <div style="font-size:26px;font-weight:900;color:var(--knesset)">${won?"הזמן נגמר!":"נפסלת!"}</div>
     <div class="end-score">${s.score.toLocaleString()}<span> נקודות</span></div>
-
-    <div style="font-size:13px;color:var(--muted);font-family:'Assistant',sans-serif;
-      background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;
-      padding:10px 14px;width:100%;text-align:right;line-height:1.7">
+    <div style="font-size:13px;color:var(--muted);font-family:'Assistant',sans-serif;background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:10px 14px;width:100%;text-align:right;line-height:1.7">
       ${mEmoji} <strong style="color:var(--knesset)">משימה:</strong> הצביעו ${mLabel}<br>
       🗳️ <strong style="color:var(--knesset)">הצבעה:</strong> ${esc(title)}
     </div>
-
     <div class="end-grid">
-      <div class="end-stat">
-        <div class="end-stat-label">🎯 לכדת</div>
-        <div class="end-stat-val" style="color:var(--for-color)">${s.caught}</div>
-      </div>
-      <div class="end-stat">
-        <div class="end-stat-label">💨 פספסת</div>
-        <div class="end-stat-val" style="color:var(--muted)">${s.missed}</div>
-      </div>
-      <div class="end-stat">
-        <div class="end-stat-label">🚫 טעויות</div>
-        <div class="end-stat-val" style="color:var(--accent)">${s.mistakes}</div>
-      </div>
-      <div class="end-stat">
-        <div class="end-stat-label">🔥 רצף מקס'</div>
-        <div class="end-stat-val" style="color:var(--gold)">${s.maxCombo}</div>
-      </div>
+      <div class="end-stat"><div class="end-stat-label">🎯 לכדת</div><div class="end-stat-val" style="color:var(--for-color)">${s.caught}</div></div>
+      <div class="end-stat"><div class="end-stat-label">💨 פספסת</div><div class="end-stat-val" style="color:var(--muted)">${s.missed}</div></div>
+      <div class="end-stat"><div class="end-stat-label">🚫 טעויות</div><div class="end-stat-val" style="color:var(--accent)">${s.mistakes}</div></div>
+      <div class="end-stat"><div class="end-stat-label">🔥 רצף מקס'</div><div class="end-stat-val" style="color:var(--gold)">${s.maxCombo}</div></div>
     </div>
-
     <div class="end-actions">
       <button class="btn btn-red" onclick="startSplash()" style="flex:1;font-size:14px;padding:13px">⚡ שחק שוב</button>
       <button class="btn-wa" onclick="window.open('https://wa.me/?text=${shareText}','_blank')">📲 שתף</button>
     </div>
     <button class="btn btn-ghost" onclick="showScreen('home')" style="width:100%;font-size:13px;padding:10px">🏠 חזור לבית</button>
   `;
+  // מסך תוצאות עם שמות
+  const MAX_SHOW = 8;
+  const caughtHtml = s.caughtNames.slice(0,MAX_SHOW).map(n=>
+    `<div class="results-name-row caught"><span class="results-name-icon">✓</span>${esc(n)}</div>`
+  ).join("");
+  const missedHtml = s.missedNames.slice(0,MAX_SHOW).map(n=>
+    `<div class="results-name-row missed"><span class="results-name-icon">✗</span>${esc(n)}</div>`
+  ).join("");
 
-  showScreen("end");
+  document.getElementById("results-card").innerHTML=`
+    <div style="text-align:center;font-size:22px;font-weight:900;color:var(--knesset)">סיכום המשחק</div>
+    <div style="text-align:center">
+      <div class="end-score" style="font-size:38px">${s.score.toLocaleString()}<span> נקודות</span></div>
+    </div>
+    ${caughtHtml ? `
+    <div>
+      <div class="results-section-title">✅ תפסת (${s.caughtNames.length})</div>
+      <div class="results-name-list">${caughtHtml}${s.caughtNames.length>MAX_SHOW?`<div style="font-size:12px;color:var(--muted);padding:4px 12px;font-family:'Assistant',sans-serif">ועוד ${s.caughtNames.length-MAX_SHOW}…</div>`:""}</div>
+    </div>` : ""}
+    ${missedHtml ? `
+    <div>
+      <div class="results-section-title">💨 פספסת (${s.missedNames.length})</div>
+      <div class="results-name-list">${missedHtml}${s.missedNames.length>MAX_SHOW?`<div style="font-size:12px;color:var(--muted);padding:4px 12px;font-family:'Assistant',sans-serif">ועוד ${s.missedNames.length-MAX_SHOW}…</div>`:""}</div>
+    </div>` : ""}
+    <div style="display:flex;gap:10px">
+      <button class="btn btn-red" onclick="startSplash()" style="flex:1;font-size:14px;padding:12px">⚡ שוב</button>
+      <button class="btn btn-blue" onclick="showScreen('end')" style="flex:1;font-size:14px;padding:12px">📊 ניקוד</button>
+      <button class="btn-wa" onclick="showScreen('end')" style="font-size:13px;padding:12px 14px">📲</button>
+    </div>
+  `;
+  showScreen("results");
 }
 
-/* ═══════════════════════════════
-   BOOT
-═══════════════════════════════ */
 init();
 </script>
 </body>
