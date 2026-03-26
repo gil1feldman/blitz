@@ -1008,72 +1008,64 @@ function endGame(){
     vote_id:VOTE_ID, vote_name:title
   })}).catch(()=>{});
 
-  const shareText = encodeURIComponent(
-    `⚡ בליץ במליאה!\nתפסתי ${s.caught} ח"כים שהצביעו ${mLabel}\n"${title}"\nניקוד: ${s.score.toLocaleString()} | רצף מקס': ${s.maxCombo}🔥\n${window.location.href}`
-  );
-
   const won = s.lives > 0;
 
-  document.getElementById("end-card").innerHTML = `
-    <div style="font-size:64px">${won?"⚡":"💔"}</div>
-    <div style="font-size:26px;font-weight:900;color:var(--knesset)">${won?"הזמן נגמר!":"נפסלת!"}</div>
-    <div class="end-score">${s.score.toLocaleString()}<span> נקודות</span></div>
+  // shareText כמשתנה JS — לא בתוך template literal
+  const shareText = encodeURIComponent(
+    '⚡ בליץ במליאה!\n' +
+    'תפסתי ' + s.caught + ' ח"כים שהצביעו ' + mLabel + '\n' +
+    '"' + title + '"\n' +
+    'ניקוד: ' + s.score.toLocaleString() + ' | רצף מקס\': ' + s.maxCombo + '🔥\n' +
+    window.location.href
+  );
 
-    <div style="font-size:13px;color:var(--muted);font-family:'Assistant',sans-serif;
-      background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;
-      padding:10px 14px;width:100%;text-align:right;line-height:1.7">
-      ${mEmoji} <strong style="color:var(--knesset)">משימה:</strong> הצביעו ${mLabel}<br>
-      🗳️ <strong style="color:var(--knesset)">הצבעה:</strong> ${esc(title)}
-    </div>
-
-    <div class="end-grid">
-      <div class="end-stat">
-        <div class="end-stat-label">🎯 לכדת</div>
-        <div class="end-stat-val" style="color:var(--for-color)">${s.caught}</div>
-      </div>
-      <div class="end-stat">
-        <div class="end-stat-label">💨 פספסת</div>
-        <div class="end-stat-val" style="color:var(--muted)">${s.missed}</div>
-      </div>
-      <div class="end-stat">
-        <div class="end-stat-label">🚫 טעויות</div>
-        <div class="end-stat-val" style="color:var(--accent)">${s.mistakes}</div>
-      </div>
-      <div class="end-stat">
-        <div class="end-stat-label">🔥 רצף מקס'</div>
-        <div class="end-stat-val" style="color:var(--gold)">${s.maxCombo}</div>
-      </div>
-    </div>
-
-    <div class="end-actions">
-      <button class="btn btn-red" onclick="startSplash()" style="flex:1;font-size:14px;padding:13px">⚡ שחק שוב</button>
-      <button class="btn-wa" onclick="window.open('https://wa.me/?text=${shareText}','_blank')">📲 שתף</button>
-    </div>
-    <button class="btn btn-ghost" onclick="showScreen('home')" style="width:100%;font-size:13px;padding:10px">🏠 חזור לבית</button>
-  `;
-
-  // מסך סיכום עם שמות
-  const MAX_SHOW = 8;
-  const caughtHtml = gs.caughtNames.slice(0,MAX_SHOW).map(n=>
+  // מסך סיכום עם כל השמות
+  const caughtHtml = s.caughtNames.map(n=>
     `<div class="res-name-row caught">✓ ${esc(n)}</div>`).join("");
-  const missedHtml = gs.missedNames.slice(0,MAX_SHOW).map(n=>
+  const missedHtml = s.missedNames.map(n=>
     `<div class="res-name-row missed">✗ ${esc(n)}</div>`).join("");
-  const extraC = gs.caughtNames.length>MAX_SHOW ? `<div class="res-more">ועוד ${gs.caughtNames.length-MAX_SHOW}…</div>` : "";
-  const extraM = gs.missedNames.length>MAX_SHOW  ? `<div class="res-more">ועוד ${gs.missedNames.length-MAX_SHOW}…</div>` : "";
 
   document.getElementById("results-card").innerHTML=`
     <div style="text-align:center">
       <div style="font-size:20px;font-weight:900;color:var(--knesset);margin-bottom:4px">סיכום המשחק</div>
       <div style="font-size:38px;font-weight:900;font-family:monospace;color:var(--knesset)">${s.score.toLocaleString()}<span style="font-size:14px;color:var(--muted);font-weight:500"> נקודות</span></div>
     </div>
-    ${caughtHtml ? `<div><div class="res-section-title">✅ תפסת (${gs.caughtNames.length})</div><div class="res-name-list">${caughtHtml}${extraC}</div></div>` : ""}
-    ${missedHtml ? `<div><div class="res-section-title">💨 פספסת (${gs.missedNames.length})</div><div class="res-name-list">${missedHtml}${extraM}</div></div>` : ""}
-    <div style="display:flex;gap:8px">
+    ${caughtHtml ? `<div><div class="res-section-title">✅ תפסת (${s.caughtNames.length})</div><div class="res-name-list">${caughtHtml}</div></div>` : ""}
+    ${missedHtml ? `<div><div class="res-section-title">💨 פספסת (${s.missedNames.length})</div><div class="res-name-list">${missedHtml}</div></div>` : ""}
+    <div style="display:flex;gap:8px;margin-top:4px">
       <button class="btn btn-red" onclick="startSplash()" style="flex:1;font-size:14px;padding:12px">⚡ שחק שוב</button>
-      <button class="btn btn-ghost" onclick="showScreen('end')" style="flex:1;font-size:14px;padding:12px">📊 ניקוד מלא</button>
+      <button class="btn btn-ghost" onclick="showScreen('end')" style="flex:1;font-size:14px;padding:12px">📊 ניקוד</button>
     </div>
   `;
   showScreen("results");
+
+  // מסך ניקוד מלא (עם כפתור שתף תקין)
+  document.getElementById("end-card").innerHTML = `
+    <div style="font-size:64px">${won?"⚡":"💔"}</div>
+    <div style="font-size:26px;font-weight:900;color:var(--knesset)">${won?"הזמן נגמר!":"נפסלת!"}</div>
+    <div class="end-score">${s.score.toLocaleString()}<span> נקודות</span></div>
+    <div style="font-size:13px;color:var(--muted);font-family:'Assistant',sans-serif;background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:10px 14px;width:100%;text-align:right;line-height:1.7">
+      ${mEmoji} <strong style="color:var(--knesset)">משימה:</strong> הצביעו ${mLabel}<br>
+      🗳️ <strong style="color:var(--knesset)">הצבעה:</strong> ${esc(title)}
+    </div>
+    <div class="end-grid">
+      <div class="end-stat"><div class="end-stat-label">🎯 לכדת</div><div class="end-stat-val" style="color:var(--for-color)">${s.caught}</div></div>
+      <div class="end-stat"><div class="end-stat-label">💨 פספסת</div><div class="end-stat-val" style="color:var(--muted)">${s.missed}</div></div>
+      <div class="end-stat"><div class="end-stat-label">🚫 טעויות</div><div class="end-stat-val" style="color:var(--accent)">${s.mistakes}</div></div>
+      <div class="end-stat"><div class="end-stat-label">🔥 רצף מקס'</div><div class="end-stat-val" style="color:var(--gold)">${s.maxCombo}</div></div>
+    </div>
+    <div class="end-actions">
+      <button class="btn btn-red" onclick="startSplash()" style="flex:1;font-size:14px;padding:13px">⚡ שחק שוב</button>
+    </div>
+    <button class="btn btn-ghost" onclick="showScreen('home')" style="width:100%;font-size:13px;padding:10px">🏠 חזור לבית</button>
+  `;
+  // כפתור שתף — מחוץ ל-innerHTML כדי שלא יישבר
+  const waBtn = document.createElement("button");
+  waBtn.className = "btn-wa";
+  waBtn.textContent = "📲 שתף";
+  waBtn.style.cssText = "width:100%";
+  waBtn.onclick = ()=>window.open("https://wa.me/?text="+shareText,"_blank");
+  document.getElementById("end-card").querySelector(".end-actions").appendChild(waBtn);
 }
 
 /* ═══════════════════════════════
