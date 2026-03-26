@@ -241,39 +241,39 @@ h1.main-title{font-size:clamp(24px,7vw,34px);font-weight:900;color:var(--knesset
 /* Vote dot — small colored indicator at top */
 .mk-dot{
   width:8px;height:8px;border-radius:50%;flex-shrink:0;
-  /* we hide this — color is shown via card border only */
   display:none;
 }
 
-/* Full name — THIS IS THE MAIN ELEMENT */
+/* Full name — UPDATED FONT SIZE */
 .mk-fname{
-  font-size:clamp(10px,2.2vw,14px);
-  font-weight:800;
-  text-align:center;
-  line-height:1.25;
-  color:var(--text);
-  padding:0 3px;
-  width:100%;
-  word-break:break-word;
-  hyphens:auto;
+  font-size: clamp(14px, 3.5vw, 20px);
+  font-weight: 800;
+  text-align: center;
+  line-height: 1.15;
+  color: var(--text);
+  padding: 0 3px;
+  width: 100%;
+  word-break: break-word;
+  hyphens: auto;
 }
 .mk-card.for     .mk-fname{color:var(--for-color);}
 .mk-card.against .mk-fname{color:var(--against-color);}
 .mk-card.abstain .mk-fname{color:var(--abstain-color);}
 
-/* Faction — small subtitle */
+/* Faction — UPDATED FONT SIZE */
 .mk-faction{
-  font-size:clamp(8px,1.5vw,10px);
-  font-weight:600;
-  text-align:center;
-  color:var(--muted);
-  font-family:'Assistant',sans-serif;
-  padding:0 2px;
-  width:100%;
-  overflow:hidden;
-  text-overflow:ellipsis;
-  white-space:nowrap;
-  line-height:1.1;
+  font-size: clamp(10px, 2vw, 13px);
+  font-weight: 600;
+  text-align: center;
+  color: var(--muted);
+  font-family: 'Assistant', sans-serif;
+  padding: 0 2px;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  line-height: 1.1;
+  margin-top: 2px;
 }
 
 /* Hit animation */
@@ -342,16 +342,16 @@ h1.main-title{font-size:clamp(24px,7vw,34px);font-weight:900;color:var(--knesset
 .modal-step-text strong{color:var(--knesset);}
 
 /* ═══════════════════════════════
-   RESPONSIVE
+   RESPONSIVE — UPDATED FONT SIZES
 ═══════════════════════════════ */
 @media(max-height:660px){
   .mk-faction{display:none;}
-  .mk-fname{font-size:clamp(9px,2vw,12px);}
+  .mk-fname{font-size: clamp(12px, 3vw, 16px);}
   .hud-val{font-size:18px;}
   .splash-icon{font-size:60px;}
 }
 @media(max-height:580px){
-  .mk-fname{font-size:9px;}
+  .mk-fname{font-size: 12px;}
   .grid{gap:5px;}
 }
 </style>
@@ -359,7 +359,6 @@ h1.main-title{font-size:clamp(24px,7vw,34px);font-weight:900;color:var(--knesset
 <body>
 <div id="app">
 
-<!-- ══ LOADING ══ -->
 <div id="screen-loading" class="screen active">
   <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;height:100%">
     <div class="load-icon">⚡</div>
@@ -369,7 +368,6 @@ h1.main-title{font-size:clamp(24px,7vw,34px);font-weight:900;color:var(--knesset
   </div>
 </div>
 
-<!-- ══ ERROR ══ -->
 <div id="screen-error" class="screen">
   <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;height:100%;padding:24px;text-align:center">
     <div style="font-size:52px">⚠️</div>
@@ -379,7 +377,6 @@ h1.main-title{font-size:clamp(24px,7vw,34px);font-weight:900;color:var(--knesset
   </div>
 </div>
 
-<!-- ══ HOME ══ -->
 <div id="screen-home" class="screen">
   <div class="home-wrap">
     <div class="home-sky">
@@ -396,7 +393,6 @@ h1.main-title{font-size:clamp(24px,7vw,34px);font-weight:900;color:var(--knesset
         <div class="vote-hero-title" id="hero-title">טוען…</div>
         <div class="vote-hero-meta" id="hero-meta"></div>
 
-        <!-- Color legend -->
         <div style="display:flex;justify-content:center;gap:10px;margin-bottom:16px;flex-wrap:wrap">
           <span style="font-size:12px;font-weight:700;color:var(--for-color);background:var(--for-bg);border:1.5px solid var(--for-border);border-radius:20px;padding:3px 12px;font-family:'Assistant',sans-serif">🟢 בעד</span>
           <span style="font-size:12px;font-weight:700;color:var(--against-color);background:var(--against-bg);border:1.5px solid var(--against-border);border-radius:20px;padding:3px 12px;font-family:'Assistant',sans-serif">🔴 נגד</span>
@@ -410,7 +406,6 @@ h1.main-title{font-size:clamp(24px,7vw,34px);font-weight:900;color:var(--knesset
   <div class="credit-footer">פיתוח: גיל פלדמן</div>
 </div>
 
-<!-- ══ SPLASH ══ -->
 <div id="screen-splash" class="screen">
   <div class="splash-icon" id="splash-icon">🎯</div>
   <div class="splash-eyebrow">המשימה שלך</div>
@@ -421,11 +416,9 @@ h1.main-title{font-size:clamp(24px,7vw,34px);font-weight:900;color:var(--knesset
   </div>
 </div>
 
-<!-- ══ BLITZ GAME ══ -->
 <div id="screen-blitz" class="screen">
   <div class="blitz-wrap" id="blitz-wrap">
 
-    <!-- HUD -->
     <div class="hud">
       <div class="hud-box">
         <div class="hud-label">זמן</div>
@@ -454,10 +447,8 @@ h1.main-title{font-size:clamp(24px,7vw,34px);font-weight:900;color:var(--knesset
       </div>
     </div>
 
-    <!-- Target reminder -->
     <div class="reminder" id="g-reminder">🎯 מטרה</div>
 
-    <!-- Progress -->
     <div style="flex-shrink:0">
       <div class="prog-row">
         <span>לכדת</span>
@@ -466,13 +457,10 @@ h1.main-title{font-size:clamp(24px,7vw,34px);font-weight:900;color:var(--knesset
       <div class="prog-bg"><div class="prog-fill" id="g-prog" style="width:0%"></div></div>
     </div>
 
-    <!-- Timer bar -->
     <div class="timer-bg"><div class="timer-fill" id="g-timer"></div></div>
 
-    <!-- Grid -->
     <div class="grid" id="grid"></div>
 
-    <!-- Stop -->
     <div style="display:flex;justify-content:center;flex-shrink:0;padding-bottom:2px">
       <button class="btn-sm" onclick="confirmQuit()" style="font-size:11px;padding:5px 14px;opacity:.7">✕ עצור</button>
     </div>
@@ -480,15 +468,11 @@ h1.main-title{font-size:clamp(24px,7vw,34px);font-weight:900;color:var(--knesset
   </div>
 </div>
 
-<!-- ══ END ══ -->
 <div id="screen-end" class="screen">
   <div class="end-card" id="end-card"></div>
 </div>
 
-</div><!-- /app -->
-
-<!-- ══ MODAL ══ -->
-<div id="modal" class="modal-overlay" style="display:none" onclick="if(event.target===this)closeModal()">
+</div><div id="modal" class="modal-overlay" style="display:none" onclick="if(event.target===this)closeModal()">
   <div class="modal-box">
     <div style="width:40px;height:4px;background:#e2e8f0;border-radius:4px;margin:0 auto 18px"></div>
     <div class="modal-title">⚡ איך משחקים בליץ?</div>
