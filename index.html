@@ -208,48 +208,42 @@ h1.main-title { font-size:clamp(24px,7vw,34px); font-weight:900; color:var(--kne
 }
 .walker:active .walker-svg { transform:scale(.88); }
 
-/* Name tag — hidden until reveal zone */
+/* Name tag — always visible, above figure */
 .walker-tag {
   position:absolute;
-  bottom:calc(100% + 4px);
+  bottom:calc(100% + 3px);
   left:50%; transform:translateX(-50%);
-  background:rgba(255,255,255,.95);
-  border:2px solid rgba(26,58,92,.2);
-  border-radius:8px;
-  padding:3px 8px;
+  background:rgba(255,255,255,.96);
+  border:2px solid;
+  border-radius:7px;
+  padding:2px 7px;
   font-size:10px; font-weight:800; white-space:nowrap;
-  color:var(--knesset);
-  box-shadow:0 2px 8px rgba(0,0,0,.12);
-  opacity:0;
-  transition:opacity .3s ease;
+  box-shadow:0 2px 6px rgba(0,0,0,.14);
   pointer-events:none;
-  max-width:90px;
+  max-width:86px;
   overflow:hidden; text-overflow:ellipsis;
+  opacity:1;
 }
 .walker-tag.for     { border-color:var(--for-color);    color:var(--for-color); }
 .walker-tag.against { border-color:var(--against-color); color:var(--against-color); }
 .walker-tag.abstain { border-color:var(--abstain-color); color:var(--abstain-color); }
-.walker-tag.visible { opacity:1; }
 
-/* Vote bubble — shown in reveal zone */
+/* Vote bubble — small dot, bottom-left of figure, doesn't overlap name */
 .walker-bubble {
   position:absolute;
-  top:-14px; right:-14px;
-  width:22px; height:22px;
+  bottom:-5px; left:-5px;
+  width:15px; height:15px;
   border-radius:50%;
   border:2px solid #fff;
   display:flex; align-items:center; justify-content:center;
-  font-size:11px;
-  opacity:0;
-  transform:scale(0);
-  transition:opacity .25s ease, transform .25s cubic-bezier(.34,1.56,.64,1);
+  font-size:7px; font-weight:900; line-height:1;
   pointer-events:none;
-  box-shadow:0 2px 6px rgba(0,0,0,.2);
+  box-shadow:0 1px 4px rgba(0,0,0,.25);
+  opacity:1;
 }
 .walker-bubble.for     { background:var(--for-color); }
 .walker-bubble.against { background:var(--against-color); }
 .walker-bubble.abstain { background:var(--abstain-color); }
-.walker-bubble.visible { opacity:1; transform:scale(1); }
 
 /* Hit animation */
 @keyframes walkerHit {
@@ -629,14 +623,14 @@ function startGame(){
   // Clear walkers
   stage.querySelectorAll(".walker").forEach(w=>w.remove());
 
-  // targets = should be STOPPED (tap them)
-  // wrongs  = should be ALLOWED through (don't tap)
+  // targets = should be STOPPED (tap them) = מי שעוצרים
+  // wrongs  = should be ALLOWED through   = מי שמניחים לעבור
   const targets = mission==="for"
-    ? [...voteData.againstM, ...voteData.abstainM]
-    : [...voteData.forM,     ...voteData.abstainM];
-  const wrongs  = mission==="for"
     ? [...voteData.forM]
     : [...voteData.againstM];
+  const wrongs  = mission==="for"
+    ? [...voteData.againstM, ...voteData.abstainM]
+    : [...voteData.forM,     ...voteData.abstainM];
 
   gs = {
     score:0, lives:3, combo:0, maxCombo:0,
@@ -729,11 +723,10 @@ function spawnWalker(){
   tag.style.cssText="opacity:1;"; // always visible
   el.appendChild(tag);
 
-  // Vote bubble (always visible)
+  // Vote bubble (always visible — no reveal zone)
   const bubble = document.createElement("div");
   bubble.className = `walker-bubble ${mk.vote}`;
   bubble.textContent = mk.vote==="for"?"✓":"✗";
-  bubble.style.cssText="opacity:1;transform:scale(1);";
   el.appendChild(bubble);
 
   stage.appendChild(el);
