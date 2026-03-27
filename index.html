@@ -632,6 +632,7 @@ function startGame(){
     ? [...voteData.againstM, ...voteData.abstainM]
     : [...voteData.forM,     ...voteData.abstainM];
 
+  console.log(`[blitz] mission="${mission}" | targets(to stop)=${targets.length} first=${targets[0]?.vote} | wrongs(allow)=${wrongs.length} first=${wrongs[0]?.vote}`);
   gs = {
     score:0, lives:3, combo:0, maxCombo:0,
     stopped:0, passed:0, mistakes:0,
@@ -916,9 +917,9 @@ function updateHUD(){
 
 function setReminder(){
   const el=document.getElementById("g-reminder");
-  const stopLabel = mission==="for" ? "נגד"    : "בעד";
-  const stopEmoji = mission==="for" ? "🔴"     : "🟢";
-  const stopVote  = mission==="for" ? "against" : "for";
+  const stopLabel = mission==="for" ? "בעד"    : "נגד";
+  const stopEmoji = mission==="for" ? "🟢"     : "🔴";
+  const stopVote  = mission==="for" ? "for"    : "against";
   el.className=`reminder ${stopVote}`;
   el.innerHTML=`🚫 עצור מצביעי <strong>${stopLabel}</strong> ${stopEmoji} &nbsp;·&nbsp; לאחרים תן לעבור`;
 }
