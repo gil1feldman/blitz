@@ -220,7 +220,7 @@ h1.main-title { font-size:clamp(24px,7vw,34px); font-weight:900; color:var(--kne
   font-size:10px; font-weight:800; white-space:nowrap;
   box-shadow:0 2px 6px rgba(0,0,0,.14);
   pointer-events:none;
-  max-width:86px;
+  max-width:110px;
   overflow:hidden; text-overflow:ellipsis;
   opacity:1;
 }
@@ -451,11 +451,11 @@ const VOTE_ID   = _p.get("G") || _p.get("vote") || "44642";
 const LOG_URL   = "https://script.google.com/macros/s/AKfycbylf9toWaPCjkCosm1orC3sMinDDzJh9NAOiAFLex9vBQmXcxIYCVr4F5WDYvVClKYe/exec";
 
 const GAME_SECS    = 45;
-const SPAWN_RATE_START = 2200; // ms between spawns at start
-const SPAWN_RATE_END   = 700;  // ms between spawns at end
-const WALK_SPEED_START = 38;
-const WALK_SPEED_END   = 90;
-const TARGET_CHANCE    = 0.52; // probability spawn is a target
+const SPAWN_RATE_START = 1800; // ms between spawns at start
+const SPAWN_RATE_END   = 500;  // ms between spawns at end
+const WALK_SPEED_START = 45;
+const WALK_SPEED_END   = 110;
+const TARGET_CHANCE    = 0.52;
 
 /* ════════════════════════════
    STATE
@@ -720,7 +720,7 @@ function spawnWalker(){
   // Name tag
   const tag = document.createElement("div");
   tag.className = `walker-tag ${mk.vote}`;
-  tag.textContent = mk.name.split(" ").slice(0,2).join(" ");
+  tag.textContent = mk.name;
   tag.style.cssText="opacity:1;"; // always visible
   el.appendChild(tag);
 
